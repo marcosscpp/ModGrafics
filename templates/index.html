@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="{{ url_for('static', filename='js/script.js') }}"
+      defer
+      type="module"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style/style.css') }}"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@^2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@^1"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>ModGrafs</title>
+  </head>
+
+  <body>
+    <div class="container box">
+      <nav class="sidenav box">
+        <a
+          href="https://modtecnologia.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img
+            alt="Modtech Logo"
+            class="sidenav__logo mb"
+            src="{{ url_for('static', filename='new_logo.png') }}"
+          />
+        </a>
+      </nav>
+
+      <main>
+        <header class="filters-container">
+          <h1 class="title box mb">Resumo</h1>
+          <form
+            action="{{ url_for('create_plot') }}"
+            method="post"
+            id="filters"
+            class="filters box"
+          >
+            <div>
+              <label class="small-box" for="start-date">Início</label>
+              <input
+                class="small-box"
+                type="date"
+                id="start-date"
+                name="start-date"
+                min="{{ min }}"
+                max="{{ max }}"
+              />
+            </div>
+            <div>
+              <label class="small-box" for="end-date">Fim</label>
+              <input
+                class="small-box"
+                type="date"
+                id="end-date"
+                name="end-date"
+                min="{{ min }}"
+                max="{{ max }}"
+              />
+            </div>
+            <div>
+              <label class="small-box" for="clients">Cliente</label>
+              <select class="small-box" name="clients" id="clients">
+                {% for cliente in clientes %}
+                <option value="{{ cliente.cliente_id }}">
+                  {{ cliente.nome }}
+                </option>
+                {% endfor %}
+              </select>
+            </div>
+            <div>
+              <label class="small-box" for="actions">Iterações</label>
+              <select class="small-box" name="actions" id="actions">
+                {% for atividade in atividades %}
+                <option value="{{ atividade.tipo_de_acao }}">
+                  {{ atividade.tipo_de_acao }}
+                </option>
+                {% endfor %}
+              </select>
+            </div>
+          </form>
+        </header>
+        <form id="visual-filters">
+          <input type="color" id="chart-bg-color" name="chart-bg-color" />
+          <input type="color" id="line-color" name="line-color" />
+          <label for="chart-type">Tipo de Gráfico</label>
+          <select name="chart-type" id="chart-type">
+            <option value="bar">Barra</option>
+            <option value="line">Linha</option>
+          </select>
+        </form>
+        <div>
+          <canvas id="chart" class="box"></canvas>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
