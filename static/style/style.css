@@ -40,6 +40,11 @@ body {
   background: var(--c2);
 }
 
+main {
+  display: flex;
+  flex-direction: column;
+}
+
 /* Global */
 
 .box {
@@ -107,7 +112,28 @@ body {
 
 #chart {
   background-color: var(--c1);
+  height: 100%;
   width: 100%;
+}
+
+.chart-container {
+  flex: 1;
+}
+
+.chart-resume {
+  display: flex;
+  gap: var(--gap);
+}
+
+.resume-item {
+  align-items: center;
+  background: var(--c4);
+  flex: 1;
+}
+
+.resume-item h4 {
+  display: inline-block;
+  margin: 0 var(--gap-sec) 0 0;
 }
 
 /*  */

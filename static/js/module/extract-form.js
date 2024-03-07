@@ -6,3 +6,4 @@ export default function extractFormData(form) {
   }
   return jsonFormData;
 }
+

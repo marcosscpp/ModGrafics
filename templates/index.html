@@ -37,14 +37,14 @@
           <img
             alt="Modtech Logo"
             class="sidenav__logo mb"
-            src="{{ url_for('static', filename='new_logo.png') }}"
+            src="{{ url_for('static', filename='dark-logo.png') }}"
           />
         </a>
       </nav>
 
       <main>
         <header class="filters-container">
-          <h1 class="title box mb">Resumo</h1>
+          <h1 class="title box mb" data-title>Resumo</h1>
           <form
             action="{{ url_for('create_plot') }}"
             method="post"
@@ -104,8 +104,22 @@
             <option value="line">Linha</option>
           </select>
         </form>
-        <div>
-          <canvas id="chart" class="box"></canvas>
+        <div class="chart-container mb">
+          <canvas width="2000" id="chart" class="box"></canvas>
+        </div>
+        <div class="chart-resume">
+          <div class="resume-item box">
+            <h4>Total</h4>
+            <span data-resume="total"></span>
+          </div>
+          <div class="resume-item box">
+            <h4>Média do Período</h4>
+            <span data-resume="average"></span>
+          </div>
+          <div class="resume-item box">
+            <h4>Valor Máximo</h4>
+            <span data-resume="max"></span>
+          </div>
         </div>
       </main>
     </div>

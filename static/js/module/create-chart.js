@@ -3,6 +3,8 @@ export default class RegisterChart {
     this.dataset = dataset;
     this.chartId = chartId;
     this.chartElement = document.getElementById(this.chartId);
+    this.chartElement.width = "100%";
+    this.chartElement.height = "100%";
     this.ctx = this.chartElement.getContext("2d");
     this.init();
   }
@@ -21,14 +23,34 @@ export default class RegisterChart {
     });
   }
 
+  getResume() {
+    let max = 0;
+    const total = this.dataset.reduce((accumulator, curVal) => {
+      if (curVal.amount > max) {
+        max = curVal.amount;
+      }
+      return accumulator + parseInt(curVal.amount);
+    }, 0);
+
+    const result = {
+      total: total,
+      max: max,
+      average: parseInt(total / this.dataset.length),
+    };
+
+    return result;
+  }
+
   renderChart() {
+    this.updateTitle();
+    this.updateResume();
     this.chart = new Chart(this.ctx, {
       type: "bar",
       data: {
         datasets: [
           {
             data: this.formatData(this.dataset),
-            label: "teste",
+            label: document.querySelector("[name='actions']").value,
             borderWidth: 2,
             backgroundColor: "red",
             borderColor: "#36A2EB",
@@ -45,11 +67,36 @@ export default class RegisterChart {
     });
   }
 
+  updateTitle() {
+    const currentAction = document.querySelector("[name='actions']").value;
+    const currentClient = document.querySelector("[name='clients']");
+    let newTitle = "";
+    if (currentClient) {
+      newTitle +=
+        currentClient.options[currentClient.selectedIndex].text + " - ";
+    }
+    newTitle += currentAction;
+    document.querySelector("[data-title]").innerText = newTitle;
+  }
+
   updateChart(newDataset) {
-    console.log(newDataset);
     this.dataset = newDataset;
+    this.updateTitle();
+    this.updateResume();
     this.chart.data.datasets[0].data = this.formatData(this.dataset);
+    this.chart.data.datasets[0].label =
+      document.querySelector("[name='actions']").value;
     this.chart.update();
+  }
+
+  updateResume() {
+    const total = document.querySelector("[data-resume='total']");
+    const max = document.querySelector("[data-resume='max']");
+    const average = document.querySelector("[data-resume='average']");
+    const data = this.getResume();
+    total.innerText = data.total;
+    max.innerText = data.max;
+    average.innerText = data.average;
   }
 
   visualUpdate(options) {
