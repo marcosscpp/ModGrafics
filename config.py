@@ -4,10 +4,10 @@ SECRET_KEY = "GrupoDomModtecnologia"
 
 SQLALCHEMY_DATABASE_URI = \
     'mysql://{user}:{password}@{server}:{port}/{database}'.format(
-        user='doadmin',
-        password='AVNS_krWo7any_BYKtuXc22J',
-        server='db-mysql-nyc3-41377-do-user-15880071-0.c.db.ondigitalocean.com',
-        port=25060,
+        user= os.environ['user'],
+        password=  os.environ['password'],
+        server=  os.environ['server'],
+        port=  os.environ['port'],
         database='automacao'
     )
 
