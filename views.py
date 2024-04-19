@@ -31,8 +31,10 @@ def create_plot():
   end_date = data["end-date"]
   clients = data["clients"]
   actions = data["actions"]
+  registers_query = Atividades.query.filter(Atividades.tipo_de_acao == actions)
 
-  registers_query = Atividades.query.filter(and_(Atividades.cliente_id == clients, Atividades.tipo_de_acao == actions))
+  if clients != "0":
+    registers_query = registers_query.filter(Atividades.cliente_id == clients)
   if start_date:
     registers_query = registers_query.filter(Atividades.data >= start_date)
   if end_date:

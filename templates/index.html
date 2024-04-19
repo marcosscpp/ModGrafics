@@ -63,6 +63,7 @@
               />
             </div>
             <div>
+              
               <label class="small-box" for="end-date">Fim</label>
               <input
                 class="small-box"
@@ -76,6 +77,7 @@
             <div>
               <label class="small-box" for="clients">Cliente</label>
               <select class="small-box" name="clients" id="clients">
+                <option value=0>Todos os Clientes</option>
                 {% for cliente in clientes %}
                 <option value="{{ cliente.cliente_id }}">
                   {{ cliente.nome }}
