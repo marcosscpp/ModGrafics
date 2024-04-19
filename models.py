@@ -16,6 +16,7 @@ class Clientes(db.Model):
   __tablename__ = 'clientes'
   cliente_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
   nome = db.Column(db.String(60))
+  cidade = db.Column(db.String(255))
 
 class Funcionarios(db.Model):
   __tablename__ = 'funcionarios'

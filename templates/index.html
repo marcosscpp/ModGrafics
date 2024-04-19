@@ -80,7 +80,7 @@
                 <option value=0>Todos os Clientes</option>
                 {% for cliente in clientes %}
                 <option value="{{ cliente.cliente_id }}">
-                  {{ cliente.nome }}
+                  {{ cliente.nome }} - {{ cliente.cidade }}
                 </option>
                 {% endfor %}
               </select>
