@@ -50,7 +50,10 @@ export default class RegisterChart {
         datasets: [
           {
             data: this.formatData(this.dataset),
-            label: document.querySelector("[name='actions']").value,
+            label:
+              document.querySelector("[name='actions']").options[
+                document.querySelector("[name='actions']").selectedIndex
+              ].text,
             borderWidth: 2,
             backgroundColor: "red",
             borderColor: "#36A2EB",
@@ -68,14 +71,16 @@ export default class RegisterChart {
   }
 
   updateTitle() {
-    const currentAction = document.querySelector("[name='actions']").value;
+    const currentAction = document.querySelector("[name='actions']");
     const currentClient = document.querySelector("[name='clients']");
     let newTitle = "";
     if (currentClient) {
       newTitle +=
         currentClient.options[currentClient.selectedIndex].text + " - ";
     }
-    newTitle += currentAction;
+    if (currentAction) {
+      newTitle += currentAction.options[currentAction.selectedIndex].text;
+    }
     document.querySelector("[data-title]").innerText = newTitle;
   }
 

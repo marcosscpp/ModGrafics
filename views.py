@@ -31,8 +31,11 @@ def create_plot():
   end_date = data["end-date"]
   clients = data["clients"]
   actions = data["actions"]
-  registers_query = Atividades.query.filter(Atividades.tipo_de_acao == actions)
-
+  registers_query =  Atividades.query.order_by(Atividades.data)
+  
+  
+  if actions != "0":
+    registers_query = Atividades.query.filter(Atividades.tipo_de_acao == actions)
   if clients != "0":
     registers_query = registers_query.filter(Atividades.cliente_id == clients)
   if start_date:
@@ -40,6 +43,6 @@ def create_plot():
   if end_date:
     registers_query = registers_query.filter(Atividades.data <= end_date)
   
-  registers = registers_query.order_by(Atividades.data).all()
+  registers = registers_query.all()
   results_list = [{"date": register.data, "amount": register.quantidade} for register in registers]
   return jsonify(results_list)
