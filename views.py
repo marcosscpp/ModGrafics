@@ -33,9 +33,8 @@ def create_plot():
   actions = data["actions"]
   registers_query =  Atividades.query.order_by(Atividades.data)
   
-  
   if actions != "0":
-    registers_query = Atividades.query.filter(Atividades.tipo_de_acao == actions)
+    registers_query = registers_query.filter(Atividades.tipo_de_acao == actions)
   if clients != "0":
     registers_query = registers_query.filter(Atividades.cliente_id == clients)
   if start_date:
